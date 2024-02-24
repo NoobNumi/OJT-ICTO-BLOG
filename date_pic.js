@@ -7,6 +7,7 @@ function folderExists(url) {
     .catch(console.error)
 }
 
+
 calendar = flatpickr(dateButton, {
   onChange: function (selectedDates, dateStr, instance) {
     var selectedDate = new Date(dateStr);
@@ -18,22 +19,49 @@ calendar = flatpickr(dateButton, {
 
     var febFirstDate = new Date("2024-02-01");
     var currentDate = new Date();
+    var currentPath = window.location.pathname;
 
-    folderExists("Blogs/" + folderName).then(folderExists => {
+    folderExists("../../Blogs/" + folderName).then(folderExists => {
       if (selectedDate > currentDate) {
-        swal("Wala pa nga ih", "", {
-          icon: "eyebrow.gif",
-        });
+        
+        if (currentPath.includes("Blogs")){
+          swal("Wala pa nga ih", "", {
+            icon: "/eyebrow.gif",
+          });
+
+        } else {
+          swal("Wala pa nga ih", "", {
+            icon: "eyebrow.gif",
+          });
+        }
       } else if (selectedDate < febFirstDate) {
-        swal("Di pa kami nag start niyan ih", "", {
-          icon: "sad.gif",
-        });
+        if (currentPath.includes("Blogs")){
+          swal("Di pa kami nag start niyan ih", "", {
+            icon: "/sad.gif",
+          });
+        } else{
+          swal("Di pa kami nag start niyan ih", "", {
+            icon: "sad.gif",
+          });
+        }
       } else if (folderExists) {
-        window.location.href = "Blogs/" + folderName;
+
+        if (currentPath.includes("Blogs")) {
+          window.location.href = "../../Blogs/" + folderName;
+        } else {
+          window.location.href = "Blogs/" + folderName;
+        }
       } else {
-        swal("Wala ako pasok niyan hehe", "", {
-          icon: "hehe.gif",
-        });
+
+        if (currentPath.includes("Blogs")){
+          swal("Wala ako pasok niyan hehe", "", {
+            icon: "/hehe.gif",
+          });
+        } else {
+            swal("Wala ako pasok niyan hehe", "", {
+            icon: "hehe.gif",
+          });
+        }
       }
     });
   },
